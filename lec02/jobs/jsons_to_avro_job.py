@@ -62,6 +62,7 @@ def run_sales_job(root_path: Path, stg_path: Path, raw_path: Path, date: str) ->
 
     return result
 
+# http://127.0.0.1:8082/jsons_to_avro?stg_path=stg&raw_path=raw&date=2022-08-09
 @app.route('/jsons_to_avro', methods=['POST'])
 def jsons_to_avro() -> dict[str, str]:
     result: dict[str, str] = {}

@@ -8,7 +8,7 @@ from requests.exceptions import HTTPError
 from requests.models import Response
 
 FAKE_API_URL: str = 'https://fake-api-vycpfa6oca-uc.a.run.app'
-ULTRA_SECRET_TOKEN: str = os.getenv('AUTH_TOKEN')
+ULTRA_SECRET_TOKEN: str | None = os.getenv('AUTH_TOKEN')
 JOBS_ROOT_PATH: Path = Path('../storage')
 
 
@@ -50,11 +50,12 @@ def run_sales_job(root_path: Path, raw_path: Path, date: str) -> dict[str, str]:
 
     return result
 
+# http://127.0.0.1:8081/http_to_json?raw_path=raw&date=2022-08-09
 @app.route('/http_to_json', methods=['POST'])
 def http_to_jsons() -> dict[str, str]:
     result: dict[str, str] = {}
 
-    path: str | None = request.args.get('raw_dir')
+    path: str | None = request.args.get('raw_path')
     date: str | None = request.args.get('date')
 
     if path is None:
